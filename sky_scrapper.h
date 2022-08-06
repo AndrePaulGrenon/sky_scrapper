@@ -16,5 +16,6 @@ int		ft_recurve_fill(int tab[4][4], int size, int h, int w, char **data);
 int		ft_atoi(const char *str);
 void	ft_print_result(int tab[4][4]);
 int		ft_show(int a, int tab[4][4]);
+int		rules(int tab[4][4], char **data, int h, int w);
 
 #endif

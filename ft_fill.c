@@ -1,47 +1,5 @@
 #include "sky_scrapper.h"
 
-int rules(int tab[4][4], char **data, int h, int w)
-{
-	int	count;
-	int i;
-	int	a;
-
-	a = 0;
-	count = 0;
-	i = 0;
-	if (w == 3)
-	{
-		while (i < 4)
-		{
-			if (a < tab[h][i])
-			{
-				a = tab[h][i];
-				count++;
-			}
-			i++;
-		}
-		//printf("count: %d data: %d \n",count, ft_atoi(data[8 + h]));
-		if (count != ft_atoi(data[8 + h]))
-			return (0);
-		count = 0;
-		i = 3;
-		a = 0;
-		while (i >= 0)
-		{
-			if (a < tab[h][i])
-			{
-				a = tab[h][i];
-				count++;
-			}
-			i--;
-		}
-		//printf("count: %d data: %d \n",count, ft_atoi(data[12 + h]));
-		if (count != ft_atoi(data[12 + h]))
-			return (0);
-	}
-	return (1);
-}
-
 int ft_hard(int tab[4][4], char **data, int h, int w)
 {
 
@@ -61,7 +19,6 @@ int ft_hard(int tab[4][4], char **data, int h, int w)
 		return (0);
 	if (w == 3 && ft_atoi(data[12 + h]) == 1 && tab[h][w] != 4)
 		return (0);
-	//printf("Has passed\n");
 	return (1);
 }
 
