@@ -1,10 +1,10 @@
 #include "sky_scrapper.h"
 
-int	ft_show(int a, int tab[4][4])
+int	ft_show(int a, t_data *data)
 {
 
-	ft_print_result(tab);
-	usleep(350000);
+	ft_print_result(data);
+	usleep(150000);
 	if (a == 1)
 		return (1);
 	return (0);

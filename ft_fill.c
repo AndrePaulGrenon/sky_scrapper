@@ -1,28 +1,28 @@
 #include "sky_scrapper.h"
 
-int ft_hard(int tab[4][4], char **data, int h, int w)
+int ft_hard(t_data *data, int h, int w)
 {
 
-	if (h == 0 && ft_atoi(data[w]) == 4 && tab[h][w] != 1)
+	if (h == 0 && ft_atoi(data->info[w]) == data->l && data->tab[h][w] != 1)
 		return (0);
-	if (h == 0 && ft_atoi(data[w]) == 1 && tab[h][w] != 4)
+	if (h == 0 && ft_atoi(data->info[w]) == 1 && data->tab[h][w] != data->l)
 		return (0);
-	if (h == 3 && ft_atoi(data[4 + w]) == 1 && tab[h][w] != 4)
+	if (h == data->l - 1 && ft_atoi(data->info[data->l + w]) == 1 && data->tab[h][w] != data->l)
 		return (0);
-	if (h == 3 && ft_atoi(data[4 + w]) == 4 && tab[h][w] != 1)
+	if (h == data->l - 1 && ft_atoi(data->info[data->l + w]) == data->l && data->tab[h][w] != 1)
 		return (0);
-	if (!w && ft_atoi(data[8 + h]) == 1 && tab[h][w] != 4)
+	if (!w && ft_atoi(data->info[(data->l * 2) + h]) == 1 && data->tab[h][w] != data->l)
 		return (0);
-	if (!w && ft_atoi(data[8 + h]) == 4 && tab[h][w] != 1)
+	if (!w && ft_atoi(data->info[(data->l * 2) + h]) == data->l && data->tab[h][w] != 1)
 		return (0);
-	if (w == 3 && ft_atoi(data[12 + h]) == 4 && tab[h][w] != 1)
+	if (w == data->l - 1 && ft_atoi(data->info[(data->l * 3) + h]) == data->l && data->tab[h][w] != 1)
 		return (0);
-	if (w == 3 && ft_atoi(data[12 + h]) == 1 && tab[h][w] != 4)
+	if (w == data->l - 1 && ft_atoi(data->info[(data->l * 3) + h]) == 1 && data->tab[h][w] != data->l)
 		return (0);
 	return (1);
 }
 
-int ft_bro(int tab[4][4], char **data, int h, int w)
+int ft_bro(int **tab, char **data, int h, int w)
 {
 	int	a;
 	int	i;
@@ -47,24 +47,24 @@ int ft_bro(int tab[4][4], char **data, int h, int w)
 	return (0);
 }
 
-int	ft_check(int tab[4][4], char **data, int h, int w)
+int	ft_check(t_data *data, int h, int w)
 {
 	int 	num;
 	bool	touch;
 	int		i;
 
-	num = tab[h][w] + 1;
-	if (num > 4)
+	num = data->tab[h][w] + 1;
+	if (num > data->l)
 		return (num);
-	while (num < 5)
+	while (num < data->l + 1)
 	{
 		touch = false;
 		i = 0;
-		while (i < 4)
+		while (i < data->l)
 		{
-			if (tab[h][i] == num)
+			if (data->tab[h][i] == num)
 				touch = true;
-			if (tab[i][w] == num)
+			if (data->tab[i][w] == num)
 				touch = true;
 			i++;
 		}
@@ -72,36 +72,34 @@ int	ft_check(int tab[4][4], char **data, int h, int w)
 			return (num);
 		num++;
 	}
-	(void) data;
 	return (num);
-
 }
 
-int	ft_recurve_fill(int tab[4][4], int size, int h, int w, char **data)
+int	ft_recurve_fill(t_data *data, int h, int w)
 {
 	int		i;
 
 	i = 1;
-	if (w == size)
+	if (w == data->l)
 	{
 		w = 0;
 		h++;
 	}
-	if (h == size)
+	if (h == data->l)
 	{
 		sleep(1);
 		return (1);
 	}
-	if (!ft_bro(tab, data, h, w))
-			return (ft_show(0, tab));
-	i = ft_check(tab, data, h, w);
-	while (i < 5)
+	if (!ft_bro(data->tab, data->info, h, w))
+			return (ft_show(0, data));
+	i = ft_check(data, h, w);
+	while (i < data->l + 1)
 	{
-		tab[h][w] = i;
-		if (ft_hard(tab, data, h, w) && rules(tab, data, h, w) && ft_recurve_fill(tab, size, h, w + 1, data))
+		data->tab[h][w] = i;
+		if (ft_hard(data, h, w) && rules(data, h, w) && ft_recurve_fill(data, h, w + 1))
 			return (1);
-		i = ft_check(tab, data, h, w);
+		i = ft_check(data, h, w);
 	}
-	tab[h][w] = 0;
-	return (ft_show(0, tab));
+	data->tab[h][w] = 0;
+	return (ft_show(0, data));
 }
