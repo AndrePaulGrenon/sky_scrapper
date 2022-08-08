@@ -24,7 +24,11 @@ int	main(int argc, char **argv)
 {
 	t_data	*data;
 	int		i;
+	struct timeval time;
+	long int ms;
 
+	gettimeofday(&time, NULL);
+	ms = time.tv_sec * 1000 + (long int) time.tv_usec / 1000;
 	data = malloc(sizeof(t_data));
 	if (argv[1])
 		i = ft_init(data, argv);
@@ -40,4 +44,6 @@ int	main(int argc, char **argv)
 	}
 	else 
 		printf("Failed to find solution\n");
+	gettimeofday(&time, NULL);
+	printf("\nProgram total time: %ld ms\n", (time.tv_sec * 1000 + (long int) time.tv_usec / 1000) - ms);
 }

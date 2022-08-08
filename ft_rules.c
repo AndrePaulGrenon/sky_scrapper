@@ -41,10 +41,14 @@ int rules_loop_v(t_data *data, int i, int p, int w)
 	return (count);
 }
 
+
 int rules(t_data *data, int h, int w)
 {
 	int	count;
-	
+
+	count = rules_loop(data, 0, 1, h);
+	if (count > ft_atoi(data->info[(data->l * 2) + h]))
+		return (0);
 	if (w == data->l - 1)
 	{
 		count = rules_loop(data, 0, 1, h);
@@ -54,6 +58,9 @@ int rules(t_data *data, int h, int w)
 		if (count != ft_atoi(data->info[(data->l * 3) + h]))
 			return (0);
 	}
+	count = rules_loop_v(data, 0, 1, w);
+	if (count > ft_atoi(data->info[w]))
+		return (0);
 	if (h == data->l - 1)
 	{
 		count = rules_loop_v(data, 0, 1, w);

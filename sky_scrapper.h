@@ -6,6 +6,7 @@
 # include <stdlib.h>
 # include <stddef.h>
 # include <stdbool.h>
+#include <sys/time.h>
 
 typedef struct	s_data
 {

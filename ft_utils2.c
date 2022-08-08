@@ -3,8 +3,8 @@
 int	ft_show(int a, t_data *data)
 {
 
-	ft_print_result(data);
-	usleep(150000);
+//	ft_print_result(data);
+//	usleep(150000);
 	if (a == 1)
 		return (1);
 	return (0);

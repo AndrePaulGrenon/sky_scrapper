@@ -87,7 +87,7 @@ int	ft_recurve_fill(t_data *data, int h, int w)
 	}
 	if (h == data->l)
 	{
-		sleep(1);
+		//sleep(1);
 		return (1);
 	}
 	if (!ft_bro(data->tab, data->info, h, w))
